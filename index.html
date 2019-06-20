@@ -1,12 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="reset.css">
+    <style>
+        body   {
+            background-color: teal;
+        }
+        .image {
+            margin: 5px;
+            height: 50px;
+            width: 50px;
+        }
+
+        #header {
+            background-color: black;
+            margin: 5px;
+            color: white;
+            width: 400px;
+            text-align: center;
+        }
+
+        #rules {
+            background-color: blue;
+            margin: 5px;
+            font-size: 18px;
+            width: 500px;
+        }
+        .info   {
+            margin: 5px;
+        }
+        #randomNumber {
+            
+            background-color: green;
+            height: 125px;
+            margin: 5px;
+            width: 250px;
+        }
+        #winsLosses {
+            
+            background-color: white;
+            height: 125px;
+            width: 100px;
+            margin: 5px;
+        }
+
+    </style>
 </head>
+
 <body>
-    
+    <div id="header">
+        <h1>Crystal Collector</h1>
+    </div>
+    <div id="rules">
+        <div class="info">At the start of the game you will be given a random number.</div>
+
+        <div class="info">There will be 4 crystals below. When each crystal is clicked you add a specific amount of points to your
+            total score.</div>
+
+        <div class="info">You win the game when your score equals the random number. You lose the game if your total score goes above
+            the random number.</div>
+
+        <div class="info">The value of each crystal is hidden until clicked on.</div>
+
+        <div class="info">Each time when the game starts, the game will change the values of each crystal.</div>
+    </div>
+    <div id="randomNumber"></div>
+    <div id="winsLosses"></div>
+    <div class="buttons">
+        <img class="image" id="image1" src="assets/images/diamond.jpg">
+        <img class="image" id="image2" src="assets/images/sapphire.png">
+        <img class="image" id="image3" src="assets/images/ruby.png">
+        <img class="image" id="image4" src="assets/images/emerald.jpg">
+    </div>
+    <div id="totalScore">
+        Your total score is:
+    </div>
+    <div id="scoreValue">
+
+    </div>
+
+    <script src="jquery-3.4.0.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+
+        var random = Math.floor(Math.random()*102+19);
+        
+        $("#numberToGet").text(random);
+        
+        var num1 = Math.floor(Math.random()*12+1);
+        var num2 = Math.floor(Math.random()*12+1);
+        var num3 = Math.floor(Math.random()*12+1);
+        var num4 = Math.floor(Math.random()*12+1);
+        
+        var totalScore= 0;
+        var wins = 0;
+        var losses = 0;
+        
+        $("#totalWins").text(wins);
+        $("#totalLosses").text(losses);
+        
+        function reset() {
+            random = Math.floor(Math.random()*102+19);
+            console.log(random);
+            $("#numberToGet").text(random);
+            var num1 = Math.floor(Math.random()*12+1);
+            var num2 = Math.floor(Math.random()*12+1);
+            var num3 = Math.floor(Math.random()*12+1);
+            var num4 = Math.floor(Math.random()*12+1);
+            userTotal = 0;
+            $("#score").text(userTotal);
+        }
+        
+        function winner() {
+            alert("Winner!");
+            wins++;
+            $("#totalWins").text(wins);
+            reset();
+        }
+        
+        function loser() {
+            alert("You Lose!!");
+            losses++;
+            $("#totalLosses").text(losses);
+            reset();
+        }
+        
+        $("#image1").on("click", function() {
+            totalScore = totalScore + num1;
+            console.log("New totalScore " + totalScore);
+            $("#score").text(totalScore);
+        
+            if (totalScore === random) {
+                winner()
+            }
+        
+            else if (totalScore > random) {
+                loser()
+            } 
+        })
+    });
+    </script>
 </body>
+
 </html>
